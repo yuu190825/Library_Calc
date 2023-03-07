@@ -45,6 +45,9 @@ string Calc::myExecution(string myCommand) {
             case 3:
                 myA = to_string(stod(myA) * stod(myB));
                 break;
+            case 4:
+                myA = to_string(stod(myA) / stod(myB));
+                break;
             }
             myB = "0";
             if (!myFinish) {
@@ -78,22 +81,22 @@ string Calc::myExecution(string myCommand) {
         case 1:
             if (!operandChange) {
                 myA = to_string(stod(myA) * pow(10, dotControl));
-                myA = to_string(ceil(stod(myA)));
+                myA = to_string(round(stod(myA)));
                 myA = to_string(stod(myA) / pow(10, dotControl));
             } else {
                 myB = to_string(stod(myB) * pow(10, dotControl));
-                myB = to_string(ceil(stod(myB)));
+                myB = to_string(round(stod(myB)));
                 myB = to_string(stod(myB) / pow(10, dotControl));
             }
             break;
         case 2:
             if (!operandChange) {
                 myA = to_string(stod(myA) * pow(10, dotControl));
-                myA = to_string(round(stod(myA)));
+                myA = to_string(ceil(stod(myA)));
                 myA = to_string(stod(myA) / pow(10, dotControl));
             } else {
                 myB = to_string(stod(myB) * pow(10, dotControl));
-                myB = to_string(round(stod(myB)));
+                myB = to_string(ceil(stod(myB)));
                 myB = to_string(stod(myB) / pow(10, dotControl));
             }
             break;
@@ -230,7 +233,6 @@ string Calc::sendNumber(string mySend) {
     string myOutput = "E ";
     if (!myError) {
         myReset();
-        mySetValue = true;
         if (!operandChange && myA.length() < 13) {
             if (myA == "0") {
                 myA = "";
@@ -266,11 +268,29 @@ string Calc::sendOperator(int mySend) {
     return myOutput;
 }
 
+string Calc::sendDot() {
+    string myOutput = "E ";
+    if (!myError) {
+        myReset();
+        if (!operandChange && myA.length() < 12) {
+            if (myA.find(".") == string::npos) {
+                myA.append(".");
+            }
+        } else if (operandChange && myB.length() < 12) {
+            if (myB.find(".") == string::npos) {
+                myB.append(".");
+            }
+        }
+        myOutput = myShow();
+    }
+    return myOutput;
+}
+
 string Calc::getResult() {
     string myOutput = "E ";
     if (!myError) {
         myFinish = true;
-        myOutput = myShow();
+        myOutput = myExecution("c");
     }
     return myOutput;
 }
