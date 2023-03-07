@@ -130,15 +130,15 @@ void Calc::myReset() {
 }
 
 // Control Function
-void Calc::setOouControl(int value) {
-    oouControl = value;
+void Calc::setOouControl(int myValue) {
+    oouControl = myValue;
 }
 
-void Calc::setDotControl(int value) {
-    dotControl = value;
+void Calc::setDotControl(int myValue) {
+    dotControl = myValue;
 }
 
-void Calc::myClear() {
+string Calc::myClear() {
     setAB = false;
     mySetValue = false;
     operandChange = false;
@@ -147,4 +147,130 @@ void Calc::myClear() {
     myOperator = 0;
     myA = "0";
     myB = "0";
+    return myShow();
+}
+
+string Calc::myNegative() {
+    string myOutput = "E ";
+    if (!myError) {
+        if (!operandChange) {
+            if (myA != "0") {
+                myA = to_string(stod(myA) * -1);
+            }
+        } else {
+            if (myB != "0") {
+                myB = to_string(stod(myB) * -1);
+            }
+        }
+        myOutput = myShow();
+    }
+    return myOutput;
+}
+
+string Calc::memoryRead() {
+    string myOutput = "E ";
+    if (!myError) {
+        myReset();
+        mySetValue = true;
+        if (!operandChange) {
+            myA = myM;
+        } else {
+            myB = myM;
+        }
+        myOutput = myShow();
+    }
+    return myOutput;
+}
+
+void Calc::memoryWrite() {
+    if (!myError) {
+        if (!operandChange) {
+            myM = to_string(stod(myM) + stod(myA));
+        } else {
+            myM = to_string(stod(myM) + stod(myB));
+        }
+    }
+}
+
+string Calc::powTwo() {
+    string myOutput = "E ";
+    if (!myError) {
+        mySetValue = true;
+        if (!operandChange) {
+            myA = to_string(pow(stod(myA), 2));
+        } else {
+            myB = to_string(pow(stod(myB), 2));
+        }
+        myExecution("f");
+        myOutput = myShow();
+    }
+    return myOutput;
+}
+
+string Calc::mySqrt() {
+    string myOutput = "E ";
+    if (!myError) {
+        try {
+            mySetValue = true;
+            if (!operandChange) {
+                myA = to_string(sqrt(stod(myA)));
+            } else {
+                myB = to_string(sqrt(stod(myB)));
+            }
+            myExecution("f");
+            myOutput = myShow();
+        } catch (...) {
+            myOutput = myExecution("e");
+        }
+    }
+    return myOutput;
+}
+
+string Calc::sendNumber(string mySend) {
+    string myOutput = "E ";
+    if (!myError) {
+        myReset();
+        mySetValue = true;
+        if (!operandChange && myA.length() < 13) {
+            if (myA == "0") {
+                myA = "";
+            }
+            myA.append(mySend);
+        } else if (operandChange && myB.length() < 13) {
+            if (myB == "0") {
+                myB = "";
+            }
+            myB.append(mySend);
+        }
+        myOutput = myShow();
+    }
+    return myOutput;
+}
+
+string Calc::sendOperator(int mySend) {
+    string myOutput = "E ";
+    if (!myError) {
+        myFinish = false;
+        if (!operandChange) {
+            setAB = false;
+            mySetValue = false;
+            operandChange = true;
+            myOutput = myA;
+        } else if (setAB) {
+            myOutput = myExecution("c");
+        }
+        if (!myError) {
+            myOperator = mySend;
+        }
+    }
+    return myOutput;
+}
+
+string Calc::getResult() {
+    string myOutput = "E ";
+    if (!myError) {
+        myFinish = true;
+        myOutput = myShow();
+    }
+    return myOutput;
 }

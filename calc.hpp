@@ -30,9 +30,18 @@ public:
     Calc();
     
     // Control Function
-    void setOouControl(int value);
-    void setDotControl(int value);
-    void myClear();
+    void setOouControl(int myValue);
+    void setDotControl(int myValue);
+    string myClear();
+    string myNegative();
+    string memoryRead();
+    void memoryWrite();
+    string powTwo();
+    string mySqrt();
+    string sendNumber(string mySend);
+    string sendOperator(int mySend);
+    string sendDot();
+    string getResult();
 };
 
 #endif /* calc_hpp */
