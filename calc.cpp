@@ -113,6 +113,14 @@ string Calc::myExecution(string myCommand) {
         myError = true;
         myOutput = "E ";
     }
+    if (!myError) {
+        while (myA.find(".") != string::npos && myA.back() == '0') {
+            myA.pop_back();
+        }
+        if (myA.back() == '.') {
+            myA.pop_back();
+        }
+    }
     if (myStep == "a") {
         myOutput = myA + " ";
     }
@@ -164,6 +172,25 @@ string Calc::myNegative() {
         } else {
             if (myB != "0") {
                 myB = to_string(stod(myB) * -1);
+            }
+        }
+        myOutput = myShow();
+    }
+    return myOutput;
+}
+
+string Calc::backSpace() {
+    string myOutput = "E ";
+    if (!myError) {
+        if (!operandChange) {
+            myA.pop_back();
+            if (myA == "") {
+                myA = "0";
+            }
+        } else {
+            myB.pop_back();
+            if (myB == "") {
+                myB = "0";
             }
         }
         myOutput = myShow();

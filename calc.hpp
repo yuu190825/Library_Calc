@@ -34,6 +34,7 @@ public:
     string setDotControl(int myValue);
     string myClear();
     string myNegative();
+    string backSpace();
     string memoryRead();
     void memoryWrite();
     string powTwo();
