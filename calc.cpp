@@ -133,14 +133,12 @@ void Calc::myReset() {
 }
 
 // Control Function
-string Calc::setOouControl(int myValue) {
+void Calc::setOouControl(int myValue) {
     oouControl = myValue;
-    return to_string(oouControl);
 }
 
-string Calc::setDotControl(int myValue) {
+void Calc::setDotControl(int myValue) {
     dotControl = myValue;
-    return to_string(dotControl);
 }
 
 string Calc::myClear() {
