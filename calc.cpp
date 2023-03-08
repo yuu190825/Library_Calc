@@ -34,7 +34,7 @@ string Calc::myExecution(string myCommand) {
     if (myCommand == "c") {
         setAB = false;
         mySetValue = false;
-        try {
+        if (myOperator != 4 && myB != "0") {
             switch (myOperator) {
             case 1:
                 myA = to_string(stod(myA) + stod(myB));
@@ -61,7 +61,7 @@ string Calc::myExecution(string myCommand) {
                 myOperator = 0;
                 myStep = "f";
             }
-        } catch (...) {
+        } else {
             myStep = "e";
         }
     }
@@ -213,17 +213,17 @@ string Calc::powTwo() {
 string Calc::mySqrt() {
     string myOutput = "E ";
     if (!myError) {
-        try {
+        if (!operandChange && stod(myA) > 0) {
+            myA = to_string(sqrt(stod(myA)));
+        } else if (operandChange && stod(myB) > 0) {
+            myB = to_string(sqrt(stod(myB)));
+        } else {
+            myOutput = myExecution("e");
+        }
+        if (!myError) {
             mySetValue = true;
-            if (!operandChange) {
-                myA = to_string(sqrt(stod(myA)));
-            } else {
-                myB = to_string(sqrt(stod(myB)));
-            }
             myExecution("f");
             myOutput = myShow();
-        } catch (...) {
-            myOutput = myExecution("e");
         }
     }
     return myOutput;

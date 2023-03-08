@@ -5,9 +5,9 @@
 int main() {
     Calc myCalc;
     myCalc.setDotControl(3);
+    std::cout << myCalc.sendNumber("2") << std::endl;
+    std::cout << myCalc.myNegative() << std::endl;
+    std::cout << myCalc.mySqrt() << std::endl;
     std::cout << myCalc.sendNumber("1") << std::endl;
-    std::cout << myCalc.sendOperator(4) << std::endl;
-    std::cout << myCalc.sendNumber("0") << std::endl;
-    std::cout << myCalc.getResult() << std::endl;
     return 0;
 }
