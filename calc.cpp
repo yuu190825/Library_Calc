@@ -137,8 +137,9 @@ void Calc::setOouControl(int myValue) {
     oouControl = myValue;
 }
 
-void Calc::setDotControl(int myValue) {
+string Calc::setDotControl(int myValue) {
     dotControl = myValue;
+    return to_string(dotControl);
 }
 
 string Calc::myClear() {

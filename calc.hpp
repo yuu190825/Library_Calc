@@ -31,7 +31,7 @@ public:
     
     // Control Function
     void setOouControl(int myValue);
-    void setDotControl(int myValue);
+    string setDotControl(int myValue);
     string myClear();
     string myNegative();
     string memoryRead();
