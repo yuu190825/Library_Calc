@@ -258,7 +258,7 @@ string Calc::sendOperator(int mySend) {
             setAB = false;
             mySetValue = false;
             operandChange = true;
-            myOutput = myA;
+            myOutput = myA + " ";
         } else if (setAB) {
             myOutput = myExecution("c");
         }
