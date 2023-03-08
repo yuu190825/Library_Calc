@@ -34,7 +34,7 @@ string Calc::myExecution(string myCommand) {
     if (myCommand == "c") {
         setAB = false;
         mySetValue = false;
-        if (myOperator != 4 && myB != "0") {
+        if (myOperator != 4 || myB != "0") {
             switch (myOperator) {
             case 1:
                 myA = to_string(stod(myA) + stod(myB));
