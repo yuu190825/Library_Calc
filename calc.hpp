@@ -1,7 +1,6 @@
 #ifndef calc_hpp
 #define calc_hpp
 
-#include <stdio.h>
 #include <string>
 
 using std::string;
