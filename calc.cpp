@@ -20,7 +20,17 @@ Calc::Calc() {
 }
 
 // Basic Function
+void Calc::cStringFormat() {
+    while (myA.find(".") != string::npos && myA.back() == '0') {
+        myA.pop_back();
+    }
+    if (myA.back() == '.') {
+        myA.pop_back();
+    }
+}
+
 string Calc::myShow() {
+    cStringFormat();
     if (!operandChange) {
         return myA + " ";
     } else {
@@ -114,12 +124,7 @@ string Calc::myExecution(string myCommand) {
         myOutput = "E ";
     }
     if (!myError) {
-        while (myA.find(".") != string::npos && myA.back() == '0') {
-            myA.pop_back();
-        }
-        if (myA.back() == '.') {
-            myA.pop_back();
-        }
+        cStringFormat();
     }
     if (myStep == "a") {
         myOutput = myA + " ";

@@ -20,6 +20,7 @@ class Calc {
     string myM;
     
     // Basic Function
+    void cStringFormat();
     string myShow();
     string myExecution(string myCommand);
     void myReset();
