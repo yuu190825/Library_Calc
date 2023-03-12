@@ -20,22 +20,22 @@ Calc::Calc() {
 }
 
 // Basic Function
-void Calc::cStringFormat() {
-    while (myA.find(".") != string::npos && myA.back() == '0') {
-        myA.pop_back();
-    }
-    if (myA.back() == '.') {
-        myA.pop_back();
-    }
-}
-
 string Calc::myShow() {
-    cStringFormat();
     if (!operandChange) {
         return myA + " ";
     } else {
         return myB + " ";
     }
+}
+
+string Calc::cStringFormat(string myString) {
+    while (myString.find(".") != string::npos && myString.back() == '0') {
+        myString.pop_back();
+    }
+    if (myString.back() == '.') {
+        myString.pop_back();
+    }
+    return myString;
 }
 
 string Calc::myExecution(string myCommand) {
@@ -59,6 +59,7 @@ string Calc::myExecution(string myCommand) {
                 myA = to_string(stod(myA) / stod(myB));
                 break;
             }
+            myA = cStringFormat(myA);
             myB = "0";
             if (!myFinish) {
                 if (myA.length() < 14) {
@@ -111,6 +112,11 @@ string Calc::myExecution(string myCommand) {
             }
             break;
         }
+        if (!operandChange) {
+            myA = cStringFormat(myA);
+        } else {
+            myB = cStringFormat(myB);
+        }
         if (myFinish) {
             if (myA.length() < 14) {
                 myStep = "a";
@@ -122,9 +128,6 @@ string Calc::myExecution(string myCommand) {
     if (myCommand == "e" || myStep == "e") {
         myError = true;
         myOutput = "E ";
-    }
-    if (!myError) {
-        cStringFormat();
     }
     if (myStep == "a") {
         myOutput = myA + " ";
@@ -173,10 +176,12 @@ string Calc::myNegative() {
         if (!operandChange) {
             if (myA != "0") {
                 myA = to_string(stod(myA) * -1);
+                myA = cStringFormat(myA);
             }
         } else {
             if (myB != "0") {
                 myB = to_string(stod(myB) * -1);
+                myB = cStringFormat(myB);
             }
         }
         myOutput = myShow();
@@ -225,6 +230,7 @@ void Calc::memoryWrite() {
         } else {
             myM = to_string(stod(myM) + stod(myB));
         }
+        myM = cStringFormat(myM);
     }
 }
 
@@ -234,8 +240,10 @@ string Calc::powTwo() {
         mySetValue = true;
         if (!operandChange) {
             myA = to_string(pow(stod(myA), 2));
+            myA = cStringFormat(myA);
         } else {
             myB = to_string(pow(stod(myB), 2));
+            myB = cStringFormat(myB);
         }
         myExecution("f");
         myOutput = myShow();
@@ -248,8 +256,10 @@ string Calc::mySqrt() {
     if (!myError) {
         if (!operandChange && stod(myA) > 0) {
             myA = to_string(sqrt(stod(myA)));
+            myA = cStringFormat(myA);
         } else if (operandChange && stod(myB) > 0) {
             myB = to_string(sqrt(stod(myB)));
+            myB = cStringFormat(myB);
         } else {
             myOutput = myExecution("e");
         }
