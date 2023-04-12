@@ -1,3 +1,3 @@
-# Class_Calc
+# Package_Calc
 
-The C++ class of Calc
+The C++ package of Calc
