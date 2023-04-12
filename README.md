@@ -1,3 +1,3 @@
-# Package_Calc
+# Library_Calc
 
-The C++ package of Calc
+The C++ library of Calc
